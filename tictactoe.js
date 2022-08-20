@@ -32,7 +32,10 @@ const dipslayBoard=()=>{
     console.log(gameChoices);
 }
     //add a method to display my gameboard on the DOM
-const clrBoard=()=>gameChoices=[];
+const clrBoard=()=>{
+    gameChoices=[];
+
+}
 
 
 return{
@@ -48,23 +51,58 @@ const player=(name,icon)=>{
 const playerName=name;
 const playerIcon=icon;
 let moves=[];
-let numberOfMoves=0;
-let returnHolder=0;
+let numberOfMoves='';
+let returnHolder='';
 
-const makeAmove=(position)=>{
+const makeAmove=()=>{
     const gameBlocks=document.querySelectorAll('.gameBlock');
-    gameBlocks.forEach(block=>block.addEventListener('click',()=>returnHolder=gameBoard.inputPlayerchoice(playerIcon,block['id'])));
-      
-     if(returnHolder==1)
-    {
-        numberOfMoves++;
-        moves.push(position);
-        returnHolder=0;
-    }
+    let currentMove='';
+    gameBlocks.forEach(block=>block.addEventListener('click',()=>{
+        returnHolder=gameBoard.inputPlayerchoice(playerIcon,block['id']);
+        currentMove=`${block['id']}`;    
+        if(returnHolder==1)
+        {
+            numberOfMoves++;
+            moves.push(currentMove);
+            returnHolder=0;
+        }
+    
+    }));
+   return checkForaWin(moves);
+    
 }
+
+const checkForaWin=(myMovesSoFar)=>
+{
+    const winningCombintations=[['0','1','2'],
+    ['0','3','6'],
+    ['0','4','8'],
+    ['3','4','5'],
+    ['6','7','8'],
+    ['1','4','7'],
+    ['2','5','8'],
+    ['2','4','6']];
+    if((myMovesSoFar.length)>=3)
+    {
+        for(let i=0;i<9;i++)
+        {
+            const multipleExist = winningCombintations[i].every(combi => {
+                    return myMovesSoFar.includes(combi);
+                });
+                if (multipleExist) return 'win';
+        }
+
+    } 
+            return 'not yet';
+    }
+
+
+
+
 return{
     playerName,
     makeAmove,
+    
 
 };
 
@@ -74,10 +112,8 @@ const player1=player('player1','X');
 const player2=player('player2','O');
 
 
-player1.makeAmove(1);
-player2.makeAmove(2);
-player2.makeAmove(1);
-player1.makeAmove(6);
+player1.makeAmove();
+
 
 
 
