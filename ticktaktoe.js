@@ -99,7 +99,7 @@ const player1=player('Player 1','X',true);
                 let currentMove='';
 
                 let returnHolder=false;
-                if(!checkWinStatus)
+                if((!checkWinStatus)&&(turnCounter<9))
                 {
                     if(firstPlayer.turnStatus)
                     {
@@ -116,9 +116,15 @@ const player1=player('Player 1','X',true);
                            secondPlayer.turnStatus=true;
                            checkWinStatus=checkForaWin(firstPlayer.moves);
                            firstPlayerWins=checkWinStatus;
+                           turnCounter++;
                            if(firstPlayerWins)
                              {
                                  displayWinner(firstPlayer.playerName);
+                             }
+                             
+                             else if(turnCounter==9)
+                             {
+                                 displayWinner('tie');
                              }
                          
                          }
@@ -138,24 +144,33 @@ const player1=player('Player 1','X',true);
                              secondPlayer.turnStatus=false;
                              checkWinStatus=checkForaWin(secondPlayer.moves);
                              secondPlayerWins=checkWinStatus;
+                             turnCounter++;
                              if(secondPlayerWins)
                                {
                                    displayWinner(secondPlayer.playerName);
                
                
                                }
-                         }
+                               
+                               else if(turnCounter==9)
+                               {
+                                   displayWinner('tie');
+                               }
+                        
+                            }
          
           
                           }
                      
 
             
-
+                        
+                        
 
             }
             else
             {
+              
                
                 return;
             }
