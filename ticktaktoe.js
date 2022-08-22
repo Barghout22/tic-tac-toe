@@ -16,7 +16,6 @@ const gameBoard=(()=>{
       {
           gameChoices[position]=player;
           document.getElementById(`${position}`).textContent=player;
-          console.log(gameChoices);
           
           return true;
       }
@@ -57,6 +56,7 @@ const gameBoard=(()=>{
       player1.turnStatus=true;
       player2.turnStatus=false;
       checkWinStatus=undefined;
+      document.getElementById('Winner-decleration').textContent=' ';
   
   
   }
@@ -81,8 +81,8 @@ const gameBoard=(()=>{
     };
 }
 
-const player1=player('player1','X',true);
-  const player2=player('player2','O',false);
+const player1=player('Player 1','X',true);
+  const player2=player('Player 2','O',false);
 
   const playGame=(()=>{
     const startNewGame=(firstPlayer,secondPlayer)=>{
@@ -116,6 +116,10 @@ const player1=player('player1','X',true);
                            secondPlayer.turnStatus=true;
                            checkWinStatus=checkForaWin(firstPlayer.moves);
                            firstPlayerWins=checkWinStatus;
+                           if(firstPlayerWins)
+                             {
+                                 displayWinner(firstPlayer.playerName);
+                             }
                          
                          }
                           }
@@ -134,6 +138,12 @@ const player1=player('player1','X',true);
                              secondPlayer.turnStatus=false;
                              checkWinStatus=checkForaWin(secondPlayer.moves);
                              secondPlayerWins=checkWinStatus;
+                             if(secondPlayerWins)
+                               {
+                                   displayWinner(secondPlayer.playerName);
+               
+               
+                               }
                          }
          
           
@@ -146,16 +156,7 @@ const player1=player('player1','X',true);
             }
             else
             {
-                if(firstPlayerWins)
-                {
-                    displayWinner(firstPlayer.playerName);
-                }
-                else if(secondPlayerWins)
-                {
-                    displayWinner(secondPlayer.playerName);
-
-
-                }
+               
                 return;
             }
               
@@ -197,9 +198,19 @@ const player1=player('player1','X',true);
         }
 
         
-const displayWinner=(onePlayer)=>
+const displayWinner=(result)=>
 {
-    console.log(`${onePlayer} is the winner`);
+    if(result==='tie')
+    {
+        document.getElementById('Winner-decleration').textContent='the game is a tie!';
+       
+    }
+    else
+    {
+        document.getElementById('Winner-decleration').textContent=`${result} is the winner!`;
+
+    }
+    
 
 }
 
