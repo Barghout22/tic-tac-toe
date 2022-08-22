@@ -86,7 +86,10 @@ const player1=player('player1','X',true);
 
   const playGame=(()=>{
     const startNewGame=(firstPlayer,secondPlayer)=>{
-        gameBoard.displayBoard();     
+            gameBoard.displayBoard();     
+            let turnCounter=0;
+            let firstPlayerWins=undefined;
+            let secondPlayerWins=undefined;
             gameBlocks=document.querySelectorAll('.gameBlock');
             gameBlocks.forEach(block=>block.addEventListener('click',()=>processPressedBlock(block['id'])));
             
@@ -94,8 +97,7 @@ const player1=player('player1','X',true);
         const processPressedBlock=(value)=>
             {
                 let currentMove='';
-                let firstPlayerWins=undefined;
-                let secondPlayerWins=undefined;
+
                 let returnHolder=false;
                 if(!checkWinStatus)
                 {
@@ -170,10 +172,9 @@ const player1=player('player1','X',true);
 
     const checkForaWin=(myMovesSoFar)=>
         {   
-            function multipleExist(arr, values) {
-                return values.every(value=> {
-                  return arr.includes(value);
-                });
+            let checkWinStatus=false;
+            function multipleExist(arr,values) {
+                return values.every(value=> arr.includes(value));
               }
             const winningCombintations=[['0','1','2'],
             ['0','3','6'],
@@ -184,12 +185,15 @@ const player1=player('player1','X',true);
             ['2','5','8'],
             ['2','4','6']];
           
-                for(let i=0;i<9;i++)
+                for(let i=0;i<8;i++)
                 {
-                const checkWinStatus=false||( multipleExist(myMovesSoFar,winningCombintations[i]));
-                return checkWinStatus;        
+                 checkWinStatus=false||( multipleExist(myMovesSoFar,winningCombintations[i]));   
+                 if(checkWinStatus)
+                 {
+                    return checkWinStatus;
+                 }     
                 }
-
+                return checkWinStatus;
         }
 
         
