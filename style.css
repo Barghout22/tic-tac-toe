@@ -6,6 +6,11 @@ body
     align-items: center;
 }
 
+.top-Header
+{
+    font-family: 'Courier New', Courier, monospace;
+
+}
 
 .gameContainer
 {
@@ -17,6 +22,7 @@ body
     grid-template-columns: repeat(3,minmax(130px,1fr));
     grid-template-rows: repeat(3,minmax(130px,1fr));
     text-align: center;
+    margin: 2%;
 }
 
 .gameBlock
@@ -32,4 +38,24 @@ padding: 0;
 .gameBlock:hover
 {background-color: rgb(127, 204, 255);
     
+}
+
+button.startNewGame
+{
+    width: 20vw;
+    height: 10vh;
+    background-color: blanchedalmond;
+    color: blue;
+    font-family: monospace;
+    font-size: 2vw;
+
+
+}
+
+button.startNewGame:hover
+{
+    width: 21vw;
+    height: 11vh;
+    background-color: rgb(255, 223, 205);
+
 }
